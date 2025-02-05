@@ -4,6 +4,7 @@ import Product, { IProduct } from "@/models/Product";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
+// Get all products (Public)
 export async function GET() {
   try {
     await connectToDatabase();
@@ -26,6 +27,7 @@ export async function GET() {
   }
 }
 
+// Create a new product (Admin only)
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);

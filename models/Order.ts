@@ -21,6 +21,8 @@ export interface IOrder {
   razorpayPaymentId?: string;
   amount: number;
   status: "pending" | "completed" | "failed";
+  coupon?: mongoose.Types.ObjectId;
+  discountApplied?: number;
   downloadUrl?: string;
   previewUrl?: string;
   createdAt?: Date;
@@ -54,6 +56,12 @@ const orderSchema = new Schema<IOrder>(
       enum: ["pending", "completed", "failed"],
       default: "pending",
     },
+    coupon: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Coupon",
+      default: null,
+    },
+    discountApplied: { type: Number, default: 0 }, // Discount applied due to coupon
     downloadUrl: { type: String },
     previewUrl: { type: String },
   },
