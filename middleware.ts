@@ -19,7 +19,7 @@ export default withAuth(
         if (
           pathname.startsWith("/api/auth") ||
           pathname === "/login" ||
-          pathname === "/register"
+          pathname === "/signup"
         ) {
           return true;
         }
@@ -52,8 +52,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - public folder
+     * - public folder (allow direct access to public images)
      */
-    "/((?!_next/static|_next/image|favicon.ico|public/).*)",
+    "/((?!_next/static/|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|webp|gif|svg)$).*)",
   ],
 };
