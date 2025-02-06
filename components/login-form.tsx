@@ -18,18 +18,21 @@ export function LoginForm({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Sign in with email and password
     const result = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirect: false, // Prevents automatic redirection
     });
 
     if (result?.error) {
-      console.error(result.error);
-      // toast notification
-    } else {
-      router.push("/"); // redirect to home page
+      alert(result.error);
+      return; // Stop execution if login fails
     }
+
+    // Redirect only if sign-in was successful
+    router.push("/");
   };
 
   return (
@@ -85,7 +88,12 @@ export function LoginForm({
         <Button
           variant="outline"
           className="w-full hover:bg-red-700 hover:text-white font-medium"
-          onClick={() => signIn("google")}
+          onClick={async () => {
+            const googleSignIn = await signIn("google", { callbackUrl: "/" });
+            if (googleSignIn?.error) {
+              alert(googleSignIn.error);
+            }
+          }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path

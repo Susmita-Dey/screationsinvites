@@ -4,7 +4,7 @@ import User from "@/models/User";
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password } = await request.json();
+    const { username, email, password } = await request.json();
 
     if (!email || !password) {
       return NextResponse.json(
@@ -25,6 +25,7 @@ export async function POST(request: NextRequest) {
     }
 
     await User.create({
+      username,
       email,
       password,
       role: "user", // Default role
